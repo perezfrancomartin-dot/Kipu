@@ -9,5 +9,14 @@
     "background_default": "seamless light grey studio backdrop, soft even lighting, no shadows on backdrop"
   },
   "prompt_fragment": "same recurring female model: early-to-mid 30s, olive-tan skin with natural freckles, long dark brown wavy hair, athletic toned build, brown eyes, sharp jawline, no makeup, consistent facial identity across all shots",
-  "notes": "Usar siempre esta fracción de prompt para mantener consistencia de identidad entre generaciones. La imagen de referencia (reference_image) es para uso interno del equipo como guía visual; el modelo de generación actual (APIMART) no soporta image-to-image, por lo que la consistencia depende del prompt_fragment."
+  "reference_sheet_angles": [
+    "frente",
+    "3-4-izquierda",
+    "perfil-izquierdo",
+    "3-4-derecha",
+    "perfil-derecho",
+    "cuerpo-completo",
+    "espalda"
+  ],
+  "notes": "Usar siempre esta fracción de prompt para mantener consistencia de identidad entre generaciones. La imagen de referencia (reference_image) es para uso interno del equipo como guía visual; el modelo de generación actual (APIMART) no soporta image-to-image, por lo que la consistencia depende del prompt_fragment. El Identity Reference Sheet (7 angulos) se genera con tools/generate_reference_sheet.py y queda en identity/reference_sheet/<timestamp>_<slug>/."
 }
