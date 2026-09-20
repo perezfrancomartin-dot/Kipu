@@ -39,6 +39,14 @@ SPECS = {
 }
 
 OUT_DIR = pathlib.Path(__file__).resolve().parent.parent / "output"
+IDENTITY_PATH = pathlib.Path(__file__).resolve().parent.parent / "identity" / "master_identity.json"
+
+
+def load_identity_fragment():
+    if not IDENTITY_PATH.exists():
+        return None
+    data = json.loads(IDENTITY_PATH.read_text())
+    return data.get("prompt_fragment")
 
 
 def call_api(model, prompt, api_key, timeout=300):
@@ -81,11 +89,18 @@ def main():
     ap.add_argument("--slug", default="shot")
     ap.add_argument("--model", default=PRIMARY_MODEL)
     ap.add_argument("--no-fallback", action="store_true")
+    ap.add_argument("--no-identity", action="store_true", help="no anteponer el master identity al prompt")
     args = ap.parse_args()
 
     api_key = os.environ.get("APIMART_API_KEY")
     if not api_key:
         sys.exit("ERROR: falta APIMART_API_KEY en el entorno.")
+
+    prompt = args.prompt
+    if not args.no_identity:
+        fragment = load_identity_fragment()
+        if fragment:
+            prompt = f"{fragment}, {prompt}"
 
     models = [args.model]
     if not args.no_fallback and args.model == PRIMARY_MODEL:
@@ -94,7 +109,7 @@ def main():
     data = None
     for model in models:
         try:
-            data = call_api(model, args.prompt, api_key)
+            data = call_api(model, prompt, api_key)
             print(f"[ok] modelo usado: {model}")
             break
         except Exception as exc:  # noqa: BLE001
@@ -109,7 +124,8 @@ def main():
 
     folder, paths = download(urls, args.slug)
     meta = {
-        "prompt": args.prompt,
+        "prompt": prompt,
+        "prompt_original": args.prompt,
         "negative_prompt": NEGATIVE_PROMPT,
         "specs": SPECS,
         "urls": urls,

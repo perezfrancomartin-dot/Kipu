@@ -1,0 +1,13 @@
+{
+  "name": "modelo-base-pilates",
+  "reference_image": "identity/reference.webp",
+  "description": {
+    "physical": "woman in her early-to-mid 30s, olive-tan skin tone with natural freckles across shoulders and arms, long dark brown wavy hair worn loose, sharp jawline, brown eyes, athletic toned build with visible lean muscle definition",
+    "grooming": "no visible makeup, natural brows, minimal styling, windswept hair",
+    "wardrobe_default": "black activewear set (cropped tank over sports bra, high-waisted leggings), matte fabric, no logos",
+    "pose_mood": "confident, calm, slight over-the-shoulder or side profile stance, arms crossed, direct or off-camera gaze",
+    "background_default": "seamless light grey studio backdrop, soft even lighting, no shadows on backdrop"
+  },
+  "prompt_fragment": "same recurring female model: early-to-mid 30s, olive-tan skin with natural freckles, long dark brown wavy hair, athletic toned build, brown eyes, sharp jawline, no makeup, consistent facial identity across all shots",
+  "notes": "Usar siempre esta fracción de prompt para mantener consistencia de identidad entre generaciones. La imagen de referencia (reference_image) es para uso interno del equipo como guía visual; el modelo de generación actual (APIMART) no soporta image-to-image, por lo que la consistencia depende del prompt_fragment."
+}
